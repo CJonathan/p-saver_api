@@ -16,13 +16,13 @@ app.use(function(req, res, next) {
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
-app.use('/api/v1', api);
+app.use('/beta', api);
 
 let PokemonController = require('./controllers/Pokemon');
 let PokemonBankController = require('./controllers/PokemonBank');
 
-api.use('/pokemon', removeUndefKeys, PokemonController);
-api.use('/bank', removeUndefKeys, PokemonBankController);
+api.use('/pokedex', removeUndefKeys, PokemonController);
+api.use('/pokebank', removeUndefKeys, PokemonBankController);
 
 function removeUndefKeys(req, res, next) {
   if(req.body) {

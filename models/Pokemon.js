@@ -2,6 +2,12 @@ const mongoose = require('mongoose');
 
 const PokemonSchema = new mongoose.Schema({
   entry: Number,
+  region: String,
+  note: String,
+  isCaught: Boolean,
+  isNotCatchable: Boolean,
+  nbCaught: Number,
+  registrationDate: Date,
   pokemon: {
     name: String,
     avatar: String,
@@ -9,12 +15,6 @@ const PokemonSchema = new mongoose.Schema({
     meta: String,
     types: Array
   },
-  region: String,
-  note: String,
-  isCaught: Boolean,
-  isNotCatchable: Boolean,
-  nbCaught: Number,
-  registrationDate: Date
 }, {collection: 'pokedex'});
 
 module.exports = mongoose.model('Pokemon', PokemonSchema);

@@ -12,6 +12,20 @@ router.get('/', (req, res) => {
   });
 });
 
+//post bank
+router.post('/', (req, res) => {
+  PokemonBank.find({ entry: req.body.entry }, (err, pokemons) => {
+    if(!err && !pokemons.length) {
+      PokemonBank.create(req.body)
+                 .then(() => {
+                   res.status(201).send();
+                 });
+    } else {
+      return res.status(400).send("Pokemon already registred");
+    }
+  });
+});
+
 router.get('/count', (req, res) => {
   PokemonBank.count({}, (err, totalEntry) => {
     if(err) return res.status(500).send('Some went wrong');
@@ -28,20 +42,6 @@ router.get('/:entry', (req, res) => {
   Pokemon.findOne({ entry: req.params.entry }, (err, pokemom) => {
     if(err) return res.status(500).send('Some went wrong');
     return res.status(200).json({ pokemom, region: pokemom.region });
-  });
-});
-
-//post bank
-router.post('/', (req, res) => {
-  PokemonBank.find({ entry: req.body.entry }, (err, pokemons) => {
-    if(!err && !pokemons.length) {
-      PokemonBank.create(req.body)
-                 .then(() => {
-                   res.status(201).send();
-                 });
-    } else {
-      return res.status(400).send("Pokemon already registred");
-    }
   });
 });
 
